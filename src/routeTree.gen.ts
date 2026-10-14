@@ -10,53 +10,33 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as CafeRouteImport } from './routes/cafe'
-import { Route as ConfeitariaRouteImport } from './routes/confeitaria'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CafeRoute = CafeRouteImport.update({
-  id: '/cafe',
-  path: '/cafe',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConfeitariaRoute = ConfeitariaRouteImport.update({
-  id: '/confeitaria',
-  path: '/confeitaria',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/cafe': typeof CafeRoute
-  '/confeitaria': typeof ConfeitariaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/cafe': typeof CafeRoute
-  '/confeitaria': typeof ConfeitariaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/cafe': typeof CafeRoute
-  '/confeitaria': typeof ConfeitariaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/cafe' | '/confeitaria'
+  fullPaths: '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cafe' | '/confeitaria'
-  id: '__root__' | '/' | '/cafe' | '/confeitaria'
+  to: '/'
+  id: '__root__' | '/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CafeRoute: typeof CafeRoute
-  ConfeitariaRoute: typeof ConfeitariaRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -68,27 +48,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/cafe': {
-      id: '/cafe'
-      path: '/cafe'
-      fullPath: '/cafe'
-      preLoaderRoute: typeof CafeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/confeitaria': {
-      id: '/confeitaria'
-      path: '/confeitaria'
-      fullPath: '/confeitaria'
-      preLoaderRoute: typeof ConfeitariaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CafeRoute: CafeRoute,
-  ConfeitariaRoute: ConfeitariaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
